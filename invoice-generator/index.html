@@ -402,63 +402,72 @@
             </h2>
 
 
-            <div class="items-header">
+           <div class="items-header">
 
-                <div>
-                    Description
-                </div>
+    <div>
+        Description
+    </div>
 
-                <div>
-                    Quantity
-                </div>
+    <div>
+        Quantity
+    </div>
 
-                <div>
-                    Unit Price
-                </div>
+    <div>
+        Unit Price
+    </div>
 
-                <div>
-                    Amount
-                </div>
-
-            </div>
-
-
-           <div class="item-row">
-
-    <input
-        id="description"
-        type="text"
-        placeholder="Product or service"
-    >
-
-    <input
-        id="quantity"
-        type="number"
-        value="1"
-        min="1"
-        oninput="calculateTotal()"
-    >
-
-    <input
-        id="unitPrice"
-        type="number"
-        value="0"
-        min="0"
-        oninput="calculateTotal()"
-    >
-
-    <input
-        id="amount"
-        type="text"
-        value="$0.00"
-        readonly
-    >
+    <div>
+        Amount
+    </div>
 
 </div>
 
 
-            <button class="add-button">
-                + Add Item
+<div id="items-container">
+
+    <div class="item-row">
+
+        <input
+            type="text"
+            class="description"
+            placeholder="Product or service"
+        >
+
+        <input
+            type="number"
+            class="quantity"
+            value="1"
+            min="1"
+            oninput="calculateTotal()"
+        >
+
+        <input
+            type="number"
+            class="unit-price"
+            value="0"
+            min="0"
+            oninput="calculateTotal()"
+        >
+
+        <input
+            type="text"
+            class="amount"
+            value="$0.00"
+            readonly
+        >
+
+    </div>
+
+</div>
+
+
+<button
+    type="button"
+    class="add-button"
+    onclick="addItem()"
+>
+    + Add Item
+</button>
             </button>
 
         </div>
@@ -518,16 +527,38 @@
 
 function calculateTotal() {
 
-    const quantity =
-        parseFloat(
-            document.getElementById("quantity").value
-        ) || 0;
+    const itemRows =
+        document.querySelectorAll(".item-row");
 
 
-    const unitPrice =
-        parseFloat(
-            document.getElementById("unitPrice").value
-        ) || 0;
+    let subtotal = 0;
+
+
+    itemRows.forEach(function(row) {
+
+        const quantity =
+            parseFloat(
+                row.querySelector(".quantity").value
+            ) || 0;
+
+
+        const unitPrice =
+            parseFloat(
+                row.querySelector(".unit-price").value
+            ) || 0;
+
+
+        const amount =
+            quantity * unitPrice;
+
+
+        row.querySelector(".amount").value =
+            "$" + amount.toFixed(2);
+
+
+        subtotal += amount;
+
+    });
 
 
     const taxRate =
@@ -536,32 +567,16 @@ function calculateTotal() {
         ) || 0;
 
 
-    // Calculate item amount
-
-    const amount =
-        quantity * unitPrice;
-
-
-    // Calculate tax
-
     const taxAmount =
-        amount * taxRate / 100;
+        subtotal * taxRate / 100;
 
-
-    // Calculate total
 
     const total =
-        amount + taxAmount;
-
-
-    // Display values
-
-    document.getElementById("amount").value =
-        "$" + amount.toFixed(2);
+        subtotal + taxAmount;
 
 
     document.getElementById("subtotal").textContent =
-        amount.toFixed(2);
+        subtotal.toFixed(2);
 
 
     document.getElementById("taxAmount").textContent =
@@ -570,6 +585,62 @@ function calculateTotal() {
 
     document.getElementById("total").textContent =
         total.toFixed(2);
+
+}
+
+
+function addItem() {
+
+    const container =
+        document.getElementById("items-container");
+
+
+    const newItem =
+        document.createElement("div");
+
+
+    newItem.className =
+        "item-row";
+
+
+    newItem.innerHTML = `
+
+        <input
+            type="text"
+            class="description"
+            placeholder="Product or service"
+        >
+
+        <input
+            type="number"
+            class="quantity"
+            value="1"
+            min="1"
+            oninput="calculateTotal()"
+        >
+
+        <input
+            type="number"
+            class="unit-price"
+            value="0"
+            min="0"
+            oninput="calculateTotal()"
+        >
+
+        <input
+            type="text"
+            class="amount"
+            value="$0.00"
+            readonly
+        >
+
+    `;
+
+
+    container.appendChild(newItem);
+
+
+    calculateTotal();
 
 }
 
