@@ -423,32 +423,38 @@
             </div>
 
 
-            <div class="item-row">
+           <div class="item-row">
 
-                <input
-                    type="text"
-                    placeholder="Product or service"
-                >
+    <input
+        id="description"
+        type="text"
+        placeholder="Product or service"
+    >
 
-                <input
-                    type="number"
-                    value="1"
-                    min="1"
-                >
+    <input
+        id="quantity"
+        type="number"
+        value="1"
+        min="1"
+        oninput="calculateTotal()"
+    >
 
-                <input
-                    type="number"
-                    value="0"
-                    min="0"
-                >
+    <input
+        id="unitPrice"
+        type="number"
+        value="0"
+        min="0"
+        oninput="calculateTotal()"
+    >
 
-                <input
-                    type="text"
-                    value="$0.00"
-                    readonly
-                >
+    <input
+        id="amount"
+        type="text"
+        value="$0.00"
+        readonly
+    >
 
-            </div>
+</div>
 
 
             <button class="add-button">
@@ -460,21 +466,43 @@
 
         <!-- TOTAL -->
 
-        <div class="total-box">
+       <div class="total-box">
 
-            <div>
-                Subtotal: $0.00
-            </div>
+    <div>
+        Subtotal:
+        $<span id="subtotal">0.00</span>
+    </div>
 
-            <div>
-                Tax: $0.00
-            </div>
+    <div style="margin-top: 10px;">
 
-            <div class="total">
-                Total: $0.00
-            </div>
+        Tax:
 
-        </div>
+        <input
+            id="taxRate"
+            type="number"
+            value="0"
+            min="0"
+            max="100"
+            oninput="calculateTotal()"
+            style="width: 70px; padding: 6px;"
+        >
+
+        %
+
+        :
+
+        $<span id="taxAmount">0.00</span>
+
+    </div>
+
+    <div class="total" style="margin-top: 15px;">
+
+        Total:
+        $<span id="total">0.00</span>
+
+    </div>
+
+</div>
 
 
         <button class="generate-button">
@@ -486,7 +514,66 @@
 
 </div>
 
+<script>
 
+function calculateTotal() {
+
+    const quantity =
+        parseFloat(
+            document.getElementById("quantity").value
+        ) || 0;
+
+
+    const unitPrice =
+        parseFloat(
+            document.getElementById("unitPrice").value
+        ) || 0;
+
+
+    const taxRate =
+        parseFloat(
+            document.getElementById("taxRate").value
+        ) || 0;
+
+
+    // Calculate item amount
+
+    const amount =
+        quantity * unitPrice;
+
+
+    // Calculate tax
+
+    const taxAmount =
+        amount * taxRate / 100;
+
+
+    // Calculate total
+
+    const total =
+        amount + taxAmount;
+
+
+    // Display values
+
+    document.getElementById("amount").value =
+        "$" + amount.toFixed(2);
+
+
+    document.getElementById("subtotal").textContent =
+        amount.toFixed(2);
+
+
+    document.getElementById("taxAmount").textContent =
+        taxAmount.toFixed(2);
+
+
+    document.getElementById("total").textContent =
+        total.toFixed(2);
+
+}
+
+</script>
 </body>
 
 </html>
