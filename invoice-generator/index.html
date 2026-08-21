@@ -2,14 +2,19 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Free Invoice Generator | AIGoHelp</title>
 
     <meta
         name="description"
-        content="Create a professional invoice online for free with AIGoHelp."
+        content="Create professional invoices online for free with AIGoHelp."
     >
 
     <style>
@@ -33,13 +38,13 @@
 
         .logo {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
         .title {
@@ -59,13 +64,13 @@
 
         .invoice-box {
             background: white;
+            border: 1px solid #e5e7eb;
             border-radius: 16px;
             padding: 30px;
-            border: 1px solid #e5e7eb;
         }
 
         .section {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .section h2 {
@@ -85,37 +90,50 @@
         }
 
         .form-group label {
-            margin-bottom: 8px;
             font-weight: 600;
+            margin-bottom: 8px;
         }
 
-       .form-group input,
-.form-group select {
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 16px;
-    background: white;
-}
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+        }
 
-      .items-header,
-.item-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 100px;
-    gap: 10px;
-    align-items: center;
-}.remove-button {
-    padding: 10px;
-    background: white;
-    border: 1px solid #dc2626;
-    color: #dc2626;
-    border-radius: 8px;
-    cursor: pointer;
-}
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
 
-.remove-button:hover {
-    background: #fef2f2;
-}
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .logo-upload {
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo-preview {
+            max-width: 180px;
+            max-height: 100px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .items-header,
+        .item-row {
+            display: grid;
+            grid-template-columns: 2fr 0.8fr 1fr 1fr 90px;
+            gap: 10px;
+            align-items: center;
+        }
 
         .items-header {
             font-weight: bold;
@@ -127,7 +145,8 @@
         }
 
         .item-row input {
-            padding: 12px;
+            width: 100%;
+            padding: 11px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
         }
@@ -141,19 +160,47 @@
             cursor: pointer;
         }
 
-        .total-box {
-            text-align: right;
+        .remove-button {
+            padding: 10px;
+            background: white;
+            border: 1px solid #dc2626;
+            color: #dc2626;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .remove-button:hover {
+            background: #fef2f2;
+        }
+
+        .discount-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 500px;
+        }
+
+        .totals {
+            max-width: 500px;
+            margin-left: auto;
             margin-top: 30px;
-            font-size: 20px;
         }
 
-        .total {
-            font-size: 30px;
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .grand-total {
+            font-size: 28px;
             font-weight: bold;
+            border-top: 2px solid #111827;
+            margin-top: 10px;
+            padding-top: 15px;
         }
 
-        .generate-button {
-            display: block;
+        .primary-button {
             width: 100%;
             margin-top: 30px;
             padding: 16px;
@@ -165,13 +212,148 @@
             cursor: pointer;
         }
 
-        .generate-button:hover {
+        .primary-button:hover {
             background: #374151;
         }
 
-        @media (max-width: 700px) {
+        .secondary-button {
+            padding: 12px 18px;
+            background: white;
+            color: #111827;
+            border: 1px solid #111827;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .preview-section {
+            margin-top: 50px;
+        }
+
+        .preview-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .invoice-preview {
+            background: white;
+            padding: 50px;
+            border: 1px solid #d1d5db;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .preview-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .preview-logo {
+            max-width: 180px;
+            max-height: 100px;
+            display: none;
+        }
+
+        .preview-company {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .preview-invoice-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .preview-meta {
+            text-align: right;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .preview-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .preview-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .preview-items {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .preview-items th,
+        .preview-items td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        .preview-items th:last-child,
+        .preview-items td:last-child {
+            text-align: right;
+        }
+
+        .preview-total {
+            max-width: 350px;
+            margin-left: auto;
+            margin-top: 20px;
+        }
+
+        .preview-total-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+        }
+
+        .preview-grand-total {
+            font-size: 22px;
+            font-weight: bold;
+            border-top: 2px solid #111827;
+            padding-top: 10px;
+            margin-top: 8px;
+        }
+
+        .preview-notes {
+            margin-top: 50px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 20px;
+        }
+
+        .preview-notes h3 {
+            margin-bottom: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        footer {
+            text-align: center;
+            color: #6b7280;
+            padding: 40px;
+        }
+
+        @media (max-width: 750px) {
 
             .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .discount-box {
                 grid-template-columns: 1fr;
             }
 
@@ -181,22 +363,74 @@
 
             .item-row {
                 grid-template-columns: 1fr;
+                border: 1px solid #e5e7eb;
+                padding: 15px;
+                border-radius: 10px;
             }
 
-            .container {
-                margin: 20px auto;
-                padding: 15px;
+            .preview-top {
+                flex-direction: column;
+            }
+
+            .preview-invoice-title,
+            .preview-meta {
+                text-align: left;
+            }
+
+            .preview-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .invoice-preview {
+                padding: 25px;
             }
 
             .title h1 {
                 font-size: 32px;
             }
+
+        }
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            header,
+            .title,
+            .invoice-box,
+            .preview-title,
+            .action-buttons,
+            footer {
+                display: none !important;
+            }
+
+            .container {
+                padding: 0;
+                margin: 0;
+                max-width: none;
+            }
+
+            .preview-section {
+                margin: 0;
+            }
+
+            .invoice-preview {
+                border: none;
+                max-width: none;
+                padding: 20px;
+            }
+
         }
 
     </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -208,6 +442,7 @@
 
 
 <div class="container">
+
 
     <div class="title">
 
@@ -235,6 +470,7 @@
 
             <div class="form-grid">
 
+
                 <div class="form-group">
 
                     <label>
@@ -242,8 +478,10 @@
                     </label>
 
                     <input
+                        id="businessName"
                         type="text"
                         placeholder="Your business name"
+                        oninput="updatePreview()"
                     >
 
                 </div>
@@ -256,8 +494,10 @@
                     </label>
 
                     <input
+                        id="businessEmail"
                         type="email"
                         placeholder="you@example.com"
+                        oninput="updatePreview()"
                     >
 
                 </div>
@@ -270,8 +510,10 @@
                     </label>
 
                     <input
+                        id="businessAddress"
                         type="text"
                         placeholder="Business address"
+                        oninput="updatePreview()"
                     >
 
                 </div>
@@ -284,11 +526,40 @@
                     </label>
 
                     <input
+                        id="businessPhone"
                         type="text"
                         placeholder="+1 234 567 890"
+                        oninput="updatePreview()"
                     >
 
                 </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Company Logo
+                    </label>
+
+                    <div class="logo-upload">
+
+                        <input
+                            id="logoInput"
+                            type="file"
+                            accept="image/*"
+                            onchange="loadLogo(event)"
+                        >
+
+                        <img
+                            id="logoPreview"
+                            class="logo-preview"
+                            alt="Logo preview"
+                        >
+
+                    </div>
+
+                </div>
+
 
             </div>
 
@@ -305,6 +576,7 @@
 
             <div class="form-grid">
 
+
                 <div class="form-group">
 
                     <label>
@@ -312,8 +584,10 @@
                     </label>
 
                     <input
+                        id="customerName"
                         type="text"
                         placeholder="Customer name"
+                        oninput="updatePreview()"
                     >
 
                 </div>
@@ -326,25 +600,30 @@
                     </label>
 
                     <input
+                        id="customerEmail"
                         type="email"
                         placeholder="customer@example.com"
+                        oninput="updatePreview()"
                     >
 
                 </div>
 
 
-                <div class="form-group">
+                <div class="form-group full-width">
 
                     <label>
                         Customer Address
                     </label>
 
                     <input
+                        id="customerAddress"
                         type="text"
                         placeholder="Customer address"
+                        oninput="updatePreview()"
                     >
 
                 </div>
+
 
             </div>
 
@@ -356,112 +635,87 @@
         <div class="section">
 
             <h2>
-            <!-- INVOICE INFORMATION -->
+                Invoice Information
+            </h2>
 
-<div class="section">
-
-    <h2>
-        Invoice Information
-    </h2>
-
-    <div class="form-grid">
-
-        <div class="form-group">
-
-            <label>
-                Invoice Number
-            </label>
-
-            <input
-                id="invoiceNumber"
-                type="text"
-                value="INV-001"
-            >
-
-        </div>
+            <div class="form-grid">
 
 
-        <div class="form-group">
+                <div class="form-group">
 
-            <label>
-                Invoice Date
-            </label>
+                    <label>
+                        Invoice Number
+                    </label>
 
-            <input
-                id="invoiceDate"
-                type="date"
-            >
+                    <input
+                        id="invoiceNumber"
+                        type="text"
+                        value="INV-001"
+                        oninput="updatePreview()"
+                    >
 
-        </div>
-
-
-        <div class="form-group">
-
-            <label>
-                Due Date
-            </label>
-
-            <input
-                id="dueDate"
-                type="date"
-            >
-
-        </div>
+                </div>
 
 
-        <div class="form-group">
+                <div class="form-group">
 
-            <label>
-                Currency
-            </label>
+                    <label>
+                        Invoice Date
+                    </label>
 
-            <select
-                id="currency"
-            >
+                    <input
+                        id="invoiceDate"
+                        type="date"
+                        onchange="updatePreview()"
+                    >
 
-                <option value="USD">
-                    USD — US Dollar
-                </option>
+                </div>
 
-                <option value="EUR">
-                    EUR — Euro
-                </option>
 
-                <option value="GBP">
-                    GBP — British Pound
-                </option>
+                <div class="form-group">
 
-                <option value="CAD">
-                    CAD — Canadian Dollar
-                </option>
+                    <label>
+                        Due Date
+                    </label>
 
-                <option value="AUD">
-                    AUD — Australian Dollar
-                </option>
+                    <input
+                        id="dueDate"
+                        type="date"
+                        onchange="updatePreview()"
+                    >
 
-                <option value="SGD">
-                    SGD — Singapore Dollar
-                </option>
+                </div>
 
-                <option value="HKD">
-                    HKD — Hong Kong Dollar
-                </option>
 
-                <option value="CNY">
-                    CNY — Chinese Yuan
-                </option>
+                <div class="form-group">
 
-                <option value="VND">
-                    VND — Vietnamese Dong
-                </option>
+                    <label>
+                        Currency
+                    </label>
 
-            </select>
+                    <select
+                        id="currency"
+                        onchange="calculateTotal(); updatePreview();"
+                    >
+
+                        <option value="USD">USD — US Dollar</option>
+                        <option value="EUR">EUR — Euro</option>
+                        <option value="GBP">GBP — British Pound</option>
+                        <option value="CAD">CAD — Canadian Dollar</option>
+                        <option value="AUD">AUD — Australian Dollar</option>
+                        <option value="SGD">SGD — Singapore Dollar</option>
+                        <option value="HKD">HKD — Hong Kong Dollar</option>
+                        <option value="CNY">CNY — Chinese Yuan</option>
+                        <option value="VND">VND — Vietnamese Dong</option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
 
         </div>
-
-    </div>
-
-</div>
 
 
         <!-- ITEMS -->
@@ -473,154 +727,547 @@
             </h2>
 
 
-          <div class="items-header">
+            <div class="items-header">
 
-    <div>
-        Description
-    </div>
+                <div>Description</div>
+                <div>Quantity</div>
+                <div>Unit Price</div>
+                <div>Amount</div>
+                <div>Action</div>
 
-    <div>
-        Quantity
-    </div>
-
-    <div>
-        Unit Price
-    </div>
-
-    <div>
-        Amount
-    </div>
-
-    <div>
-        Action
-    </div>
-
-</div>
+            </div>
 
 
-<div id="items-container">
-
-    <div class="item-row">
-
-    <input
-        type="text"
-        class="description"
-        placeholder="Product or service"
-    >
-
-    <input
-        type="number"
-        class="quantity"
-        value="1"
-        min="1"
-        oninput="calculateTotal()"
-    >
-
-    <input
-        type="number"
-        class="unit-price"
-        value="0"
-        min="0"
-        oninput="calculateTotal()"
-    >
-
-    <input
-        type="text"
-        class="amount"
-        value="$0.00"
-        readonly
-    >
-
-    <button
-        type="button"
-        class="remove-button"
-        onclick="removeItem(this)"
-    >
-        Remove
-    </button>
-
-</div>
-        >
-
-    </div>
-
-</div>
+            <div id="items-container">
 
 
-<button
-    type="button"
-    class="add-button"
-    onclick="addItem()"
->
-    + Add Item
-</button>
+                <div class="item-row">
+
+
+                    <input
+                        type="text"
+                        class="description"
+                        placeholder="Product or service"
+                        oninput="updatePreview()"
+                    >
+
+
+                    <input
+                        type="number"
+                        class="quantity"
+                        value="1"
+                        min="1"
+                        oninput="calculateTotal(); updatePreview()"
+                    >
+
+
+                    <input
+                        type="number"
+                        class="unit-price"
+                        value="0"
+                        min="0"
+                        oninput="calculateTotal(); updatePreview()"
+                    >
+
+
+                    <input
+                        type="text"
+                        class="amount"
+                        value="$0.00"
+                        readonly
+                    >
+
+
+                    <button
+                        type="button"
+                        class="remove-button"
+                        onclick="removeItem(this)"
+                    >
+                        Remove
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="button"
+                class="add-button"
+                onclick="addItem()"
+            >
+                + Add Item
             </button>
+
 
         </div>
 
 
-        <!-- TOTAL -->
+        <!-- DISCOUNT AND TAX -->
 
-       <div class="total-box">
+        <div class="section">
 
-    <div>
-        Subtotal:
-        $<span id="subtotal">0.00</span>
-    </div>
+            <h2>
+                Discount & Tax
+            </h2>
 
-    <div style="margin-top: 10px;">
 
-        Tax:
+            <div class="discount-box">
 
-        <input
-            id="taxRate"
-            type="number"
-            value="0"
-            min="0"
-            max="100"
-            oninput="calculateTotal()"
-            style="width: 70px; padding: 6px;"
+
+                <div class="form-group">
+
+                    <label>
+                        Discount Type
+                    </label>
+
+                    <select
+                        id="discountType"
+                        onchange="calculateTotal(); updatePreview();"
+                    >
+
+                        <option value="percentage">
+                            Percentage (%)
+                        </option>
+
+                        <option value="fixed">
+                            Fixed Amount
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Discount
+                    </label>
+
+                    <input
+                        id="discountValue"
+                        type="number"
+                        value="0"
+                        min="0"
+                        oninput="calculateTotal(); updatePreview()"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tax Rate (%)
+                    </label>
+
+                    <input
+                        id="taxRate"
+                        type="number"
+                        value="0"
+                        min="0"
+                        oninput="calculateTotal(); updatePreview()"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- NOTES -->
+
+        <div class="section">
+
+            <h2>
+                Notes & Payment Terms
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Thank you for your business."
+                        oninput="updatePreview()"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Payment Terms
+                    </label>
+
+                    <textarea
+                        id="paymentTerms"
+                        placeholder="Payment due within 30 days."
+                        oninput="updatePreview()"
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTALS -->
+
+        <div class="totals">
+
+
+            <div class="total-line">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <span>
+                    <span id="currencySymbol">$</span><span id="subtotal">0.00</span>
+                </span>
+
+            </div>
+
+
+            <div class="total-line">
+
+                <span>
+                    Discount
+                </span>
+
+                <span>
+                    -<span id="currencySymbolDiscount">$</span><span id="discountAmount">0.00</span>
+                </span>
+
+            </div>
+
+
+            <div class="total-line">
+
+                <span>
+                    Tax
+                </span>
+
+                <span>
+                    <span id="currencySymbolTax">$</span><span id="taxAmount">0.00</span>
+                </span>
+
+            </div>
+
+
+            <div class="total-line grand-total">
+
+                <span>
+                    Total
+                </span>
+
+                <span>
+                    <span id="currencySymbolTotal">$</span><span id="total">0.00</span>
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="button"
+            class="primary-button"
+            onclick="updatePreview(); scrollToPreview();"
         >
-
-        %
-
-        :
-
-        $<span id="taxAmount">0.00</span>
-
-    </div>
-
-    <div class="total" style="margin-top: 15px;">
-
-        Total:
-        $<span id="total">0.00</span>
-
-    </div>
-
-</div>
-
-
-        <button class="generate-button">
-            Generate Invoice
+            Preview Invoice
         </button>
 
 
     </div>
 
+
+    <!-- PREVIEW -->
+
+    <div
+        id="previewSection"
+        class="preview-section"
+    >
+
+        <h2 class="preview-title">
+            Invoice Preview
+        </h2>
+
+
+        <div class="invoice-preview">
+
+
+            <div class="preview-top">
+
+
+                <div>
+
+                    <img
+                        id="previewLogo"
+                        class="preview-logo"
+                        alt="Company Logo"
+                    >
+
+                    <div
+                        id="previewCompany"
+                        class="preview-company"
+                    >
+                        Your Business
+                    </div>
+
+                    <div id="previewBusinessContact">
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div class="preview-invoice-title">
+                        INVOICE
+                    </div>
+
+                    <div
+                        id="previewInvoiceMeta"
+                        class="preview-meta"
+                    >
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="preview-columns">
+
+
+                <div>
+
+                    <div class="preview-label">
+                        Bill From
+                    </div>
+
+                    <div id="previewFrom">
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div class="preview-label">
+                        Bill To
+                    </div>
+
+                    <div id="previewTo">
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <table class="preview-items">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Description
+                        </th>
+
+                        <th>
+                            Quantity
+                        </th>
+
+                        <th>
+                            Unit Price
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="previewItems"
+                >
+                </tbody>
+
+            </table>
+
+
+            <div class="preview-total">
+
+
+                <div class="preview-total-line">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <span id="previewSubtotal">
+                    </span>
+
+                </div>
+
+
+                <div class="preview-total-line">
+
+                    <span>
+                        Discount
+                    </span>
+
+                    <span id="previewDiscount">
+                    </span>
+
+                </div>
+
+
+                <div class="preview-total-line">
+
+                    <span>
+                        Tax
+                    </span>
+
+                    <span id="previewTax">
+                    </span>
+
+                </div>
+
+
+                <div class="preview-total-line preview-grand-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span id="previewTotal">
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="preview-notes">
+
+                <h3>
+                    Notes
+                </h3>
+
+                <div id="previewNotes">
+                </div>
+
+
+                <h3 style="margin-top:25px;">
+                    Payment Terms
+                </h3>
+
+                <div id="previewPaymentTerms">
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="action-buttons">
+
+
+            <button
+                type="button"
+                class="secondary-button"
+                onclick="window.print()"
+            >
+                Print / Save as PDF
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
 </div>
+
+
+<footer>
+
+    © 2026 AIGoHelp. All rights reserved.
+
+</footer>
+
 
 <script>
 
+
+/* ==============================
+   CURRENCY
+============================== */
+
+function getCurrencySymbol(currency) {
+
+    const symbols = {
+
+        USD: "$",
+        EUR: "€",
+        GBP: "£",
+        CAD: "C$",
+        AUD: "A$",
+        SGD: "S$",
+        HKD: "HK$",
+        CNY: "¥",
+        VND: "₫"
+
+    };
+
+    return symbols[currency] || currency;
+
+}
+
+
+/* ==============================
+   CALCULATE TOTAL
+============================== */
+
 function calculateTotal() {
 
-    const itemRows =
+    const rows =
         document.querySelectorAll(".item-row");
 
 
     let subtotal = 0;
 
 
-    itemRows.forEach(function(row) {
+    rows.forEach(function(row) {
 
         const quantity =
             parseFloat(
@@ -639,12 +1286,49 @@ function calculateTotal() {
 
 
         row.querySelector(".amount").value =
-            "$" + amount.toFixed(2);
+            formatMoney(amount);
 
 
         subtotal += amount;
 
     });
+
+
+    const discountType =
+        document.getElementById("discountType").value;
+
+
+    const discountValue =
+        parseFloat(
+            document.getElementById("discountValue").value
+        ) || 0;
+
+
+    let discountAmount = 0;
+
+
+    if (discountType === "percentage") {
+
+        discountAmount =
+            subtotal * discountValue / 100;
+
+    } else {
+
+        discountAmount =
+            discountValue;
+
+    }
+
+
+    if (discountAmount > subtotal) {
+
+        discountAmount = subtotal;
+
+    }
+
+
+    const taxableAmount =
+        subtotal - discountAmount;
 
 
     const taxRate =
@@ -654,44 +1338,119 @@ function calculateTotal() {
 
 
     const taxAmount =
-        subtotal * taxRate / 100;
+        taxableAmount * taxRate / 100;
 
 
     const total =
-        subtotal + taxAmount;
+        taxableAmount + taxAmount;
+
+
+    const currency =
+        document.getElementById("currency").value;
+
+
+    const symbol =
+        getCurrencySymbol(currency);
 
 
     document.getElementById("subtotal").textContent =
-        subtotal.toFixed(2);
+        formatNumber(subtotal);
+
+
+    document.getElementById("discountAmount").textContent =
+        formatNumber(discountAmount);
 
 
     document.getElementById("taxAmount").textContent =
-        taxAmount.toFixed(2);
+        formatNumber(taxAmount);
 
 
     document.getElementById("total").textContent =
-        total.toFixed(2);
+        formatNumber(total);
+
+
+    document.getElementById("currencySymbol").textContent =
+        symbol;
+
+
+    document.getElementById("currencySymbolDiscount").textContent =
+        symbol;
+
+
+    document.getElementById("currencySymbolTax").textContent =
+        symbol;
+
+
+    document.getElementById("currencySymbolTotal").textContent =
+        symbol;
+
+
+    return {
+
+        subtotal,
+        discountAmount,
+        taxAmount,
+        total,
+        currency,
+        symbol
+
+    };
 
 }
 
+
+/* ==============================
+   NUMBER FORMAT
+============================== */
+
+function formatNumber(number) {
+
+    return number.toFixed(2);
+
+}
+
+
+function formatMoney(number) {
+
+    const currency =
+        document.getElementById("currency")
+            .value;
+
+
+    const symbol =
+        getCurrencySymbol(currency);
+
+
+    return symbol + number.toFixed(2);
+
+}
+
+
+/* ==============================
+   ADD ITEM
+============================== */
 
 function addItem() {
 
     const container =
         document.getElementById("items-container");
 
-    const newItem =
+
+    const row =
         document.createElement("div");
 
-    newItem.className =
+
+    row.className =
         "item-row";
 
-    newItem.innerHTML = `
+
+    row.innerHTML = `
 
         <input
             type="text"
             class="description"
             placeholder="Product or service"
+            oninput="updatePreview()"
         >
 
         <input
@@ -699,7 +1458,7 @@ function addItem() {
             class="quantity"
             value="1"
             min="1"
-            oninput="calculateTotal()"
+            oninput="calculateTotal(); updatePreview()"
         >
 
         <input
@@ -707,7 +1466,7 @@ function addItem() {
             class="unit-price"
             value="0"
             min="0"
-            oninput="calculateTotal()"
+            oninput="calculateTotal(); updatePreview()"
         >
 
         <input
@@ -727,75 +1486,440 @@ function addItem() {
 
     `;
 
-    container.appendChild(newItem);
+
+    container.appendChild(row);
+
 
     calculateTotal();
+
+    updatePreview();
+
 }
 
+
+/* ==============================
+   REMOVE ITEM
+============================== */
 
 function removeItem(button) {
 
-    const row =
-        button.parentElement;
+    const container =
+        document.getElementById("items-container");
 
-    row.remove();
+
+    const rows =
+        container.querySelectorAll(".item-row");
+
+
+    if (rows.length <= 1) {
+
+        alert(
+            "At least one item is required."
+        );
+
+        return;
+
+    }
+
+
+    button.parentElement.remove();
+
 
     calculateTotal();
+
+    updatePreview();
+
 }
+
+
+/* ==============================
+   LOGO
+============================== */
+
+function loadLogo(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) {
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e) {
+
+            const image =
+                document.getElementById("logoPreview");
+
+
+            image.src =
+                e.target.result;
+
+
+            image.style.display =
+                "block";
+
+
+            const previewLogo =
+                document.getElementById("previewLogo");
+
+
+            previewLogo.src =
+                e.target.result;
+
+
+            previewLogo.style.display =
+                "block";
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* ==============================
+   PREVIEW
+============================== */
+
+function updatePreview() {
+
+    const totals =
+        calculateTotal();
+
+
+    const businessName =
+        document.getElementById("businessName").value
+        || "Your Business";
+
+
+    const businessEmail =
+        document.getElementById("businessEmail").value;
+
+
+    const businessAddress =
+        document.getElementById("businessAddress").value;
+
+
+    const businessPhone =
+        document.getElementById("businessPhone").value;
+
+
+    const customerName =
+        document.getElementById("customerName").value
+        || "Customer";
+
+
+    const customerEmail =
+        document.getElementById("customerEmail").value;
+
+
+    const customerAddress =
+        document.getElementById("customerAddress").value;
+
+
+    const invoiceNumber =
+        document.getElementById("invoiceNumber").value
+        || "INV-001";
+
+
+    const invoiceDate =
+        document.getElementById("invoiceDate").value;
+
+
+    const dueDate =
+        document.getElementById("dueDate").value;
+
+
+    const notes =
+        document.getElementById("notes").value
+        || "Thank you for your business.";
+
+
+    const paymentTerms =
+        document.getElementById("paymentTerms").value
+        || "Payment due within 30 days.";
+
+
+    document.getElementById("previewCompany")
+        .textContent = businessName;
+
+
+    document.getElementById("previewBusinessContact")
+        .innerHTML =
+            escapeHtml(businessAddress)
+            + "<br>"
+            + escapeHtml(businessEmail)
+            + "<br>"
+            + escapeHtml(businessPhone);
+
+
+    document.getElementById("previewInvoiceMeta")
+        .innerHTML =
+
+        "Invoice #: "
+        + escapeHtml(invoiceNumber)
+        + "<br>"
+
+        + "Invoice Date: "
+        + escapeHtml(formatDate(invoiceDate))
+        + "<br>"
+
+        + "Due Date: "
+        + escapeHtml(formatDate(dueDate));
+
+
+    document.getElementById("previewFrom")
+        .innerHTML =
+
+        escapeHtml(businessName)
+        + "<br>"
+        + escapeHtml(businessAddress)
+        + "<br>"
+        + escapeHtml(businessEmail)
+        + "<br>"
+        + escapeHtml(businessPhone);
+
+
+    document.getElementById("previewTo")
+        .innerHTML =
+
+        escapeHtml(customerName)
+        + "<br>"
+        + escapeHtml(customerAddress)
+        + "<br>"
+        + escapeHtml(customerEmail);
+
+
+    const previewItems =
+        document.getElementById("previewItems");
+
+
+    previewItems.innerHTML = "";
+
+
+    const rows =
+        document.querySelectorAll(".item-row");
+
+
+    rows.forEach(function(row) {
+
+        const description =
+            row.querySelector(".description").value
+            || "Item";
+
+
+        const quantity =
+            parseFloat(
+                row.querySelector(".quantity").value
+            ) || 0;
+
+
+        const unitPrice =
+            parseFloat(
+                row.querySelector(".unit-price").value
+            ) || 0;
+
+
+        const amount =
+            quantity * unitPrice;
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+            <td>
+                ${escapeHtml(description)}
+            </td>
+
+            <td>
+                ${quantity}
+            </td>
+
+            <td>
+                ${totals.symbol}${unitPrice.toFixed(2)}
+            </td>
+
+            <td>
+                ${totals.symbol}${amount.toFixed(2)}
+            </td>
+
+        `;
+
+
+        previewItems.appendChild(tr);
+
+    });
+
+
+    document.getElementById("previewSubtotal")
+        .textContent =
+        totals.symbol
+        + totals.subtotal.toFixed(2);
+
+
+    document.getElementById("previewDiscount")
+        .textContent =
+        "-"
+        + totals.symbol
+        + totals.discountAmount.toFixed(2);
+
+
+    document.getElementById("previewTax")
+        .textContent =
+        totals.symbol
+        + totals.taxAmount.toFixed(2);
+
+
+    document.getElementById("previewTotal")
+        .textContent =
+        totals.symbol
+        + totals.total.toFixed(2);
+
+
+    document.getElementById("previewNotes")
+        .textContent =
+        notes;
+
+
+    document.getElementById("previewPaymentTerms")
+        .textContent =
+        paymentTerms;
+
+}
+
+
+/* ==============================
+   DATE
+============================== */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+
+        return "";
+
+    }
+
+
+    const parts =
+        dateString.split("-");
+
+
+    if (parts.length !== 3) {
+
+        return dateString;
+
+    }
+
+
+    return parts[1]
+        + "/"
+        + parts[2]
+        + "/"
+        + parts[0];
+
+}
+
+
+/* ==============================
+   ESCAPE HTML
+============================== */
+
+function escapeHtml(text) {
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* ==============================
+   DEFAULT DATES
+============================== */
+
 function setDefaultDates() {
 
     const today =
         new Date();
 
-    const year =
-        today.getFullYear();
-
-    const month =
-        String(
-            today.getMonth() + 1
-        ).padStart(2, "0");
-
-    const day =
-        String(
-            today.getDate()
-        ).padStart(2, "0");
 
     const todayString =
-        `${year}-${month}-${day}`;
+        today.toISOString()
+            .split("T")[0];
 
 
-    document.getElementById("invoiceDate").value =
+    document.getElementById("invoiceDate")
+        .value =
         todayString;
 
 
     const dueDate =
         new Date(today);
 
+
     dueDate.setDate(
         dueDate.getDate() + 30
     );
 
 
-    const dueYear =
-        dueDate.getFullYear();
-
-    const dueMonth =
-        String(
-            dueDate.getMonth() + 1
-        ).padStart(2, "0");
-
-    const dueDay =
-        String(
-            dueDate.getDate()
-        ).padStart(2, "0");
+    const dueDateString =
+        dueDate.toISOString()
+            .split("T")[0];
 
 
-    document.getElementById("dueDate").value =
-        `${dueYear}-${dueMonth}-${dueDay}`;
+    document.getElementById("dueDate")
+        .value =
+        dueDateString;
 
 }
-    setDefaultDates();
+
+
+/* ==============================
+   SCROLL TO PREVIEW
+============================== */
+
+function scrollToPreview() {
+
+    document.getElementById(
+        "previewSection"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* ==============================
+   INITIALIZE
+============================== */
+
+setDefaultDates();
+
+calculateTotal();
+
+updatePreview();
+
+
 </script>
+
+
 </body>
 
 </html>
