@@ -17,385 +17,793 @@
         content="Create professional invoices online for free with AIGoHelp."
     >
 
+    <!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
     <style>
 
         * {
             box-sizing: border-box;
         }
 
+
         body {
+
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #f7f8fa;
+
             color: #1f2937;
+
         }
+
 
         header {
+
             background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 20px 40px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            padding:
+                20px 40px;
+
         }
+
 
         .logo {
+
             font-size: 24px;
+
             font-weight: 700;
+
         }
+
 
         .container {
+
             max-width: 1100px;
+
             margin: 0 auto;
+
             padding: 40px 20px;
+
         }
+
 
         .title {
+
             text-align: center;
+
             margin-bottom: 40px;
+
         }
+
 
         .title h1 {
+
             font-size: 40px;
+
             margin-bottom: 10px;
+
         }
+
 
         .title p {
+
             color: #6b7280;
+
             font-size: 18px;
+
         }
+
 
         .invoice-box {
+
             background: white;
-            border: 1px solid #e5e7eb;
+
+            border:
+                1px solid #e5e7eb;
+
             border-radius: 16px;
+
             padding: 30px;
+
         }
+
 
         .section {
+
             margin-bottom: 35px;
+
         }
+
 
         .section h2 {
+
             font-size: 20px;
+
             margin-bottom: 20px;
+
         }
+
 
         .form-grid {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 20px;
+
         }
+
 
         .form-group {
+
             display: flex;
+
             flex-direction: column;
+
         }
 
+
         .form-group label {
+
             font-weight: 600;
+
             margin-bottom: 8px;
+
         }
+
 
         .form-group input,
         .form-group select,
         .form-group textarea {
+
             padding: 12px;
-            border: 1px solid #d1d5db;
+
+            border:
+                1px solid #d1d5db;
+
             border-radius: 8px;
+
             font-size: 16px;
+
             background: white;
+
         }
+
 
         .form-group textarea {
+
             min-height: 110px;
+
             resize: vertical;
+
         }
+
 
         .full-width {
-            grid-column: 1 / -1;
+
+            grid-column:
+                1 / -1;
+
         }
+
 
         .logo-upload {
-            border: 2px dashed #d1d5db;
+
+            border:
+                2px dashed #d1d5db;
+
             border-radius: 10px;
+
             padding: 20px;
+
             text-align: center;
+
         }
 
+
         .logo-preview {
+
             max-width: 180px;
+
             max-height: 100px;
+
             margin-top: 15px;
+
             display: none;
+
         }
+
 
         .items-header,
         .item-row {
+
             display: grid;
-            grid-template-columns: 2fr 0.8fr 1fr 1fr 90px;
+
+            grid-template-columns:
+                2fr
+                0.8fr
+                1fr
+                1fr
+                90px;
+
             gap: 10px;
+
             align-items: center;
+
         }
+
 
         .items-header {
+
             font-weight: bold;
+
             margin-bottom: 10px;
+
         }
+
 
         .item-row {
+
             margin-bottom: 10px;
+
         }
+
 
         .item-row input {
+
             width: 100%;
+
             padding: 11px;
-            border: 1px solid #d1d5db;
+
+            border:
+                1px solid #d1d5db;
+
             border-radius: 8px;
+
         }
+
 
         .add-button {
+
             margin-top: 10px;
+
             background: white;
-            border: 1px solid #111827;
-            padding: 10px 16px;
+
+            border:
+                1px solid #111827;
+
+            padding:
+                10px 16px;
+
             border-radius: 8px;
+
             cursor: pointer;
+
         }
+
 
         .remove-button {
+
             padding: 10px;
+
             background: white;
-            border: 1px solid #dc2626;
+
+            border:
+                1px solid #dc2626;
+
             color: #dc2626;
+
             border-radius: 8px;
+
             cursor: pointer;
+
         }
+
 
         .remove-button:hover {
+
             background: #fef2f2;
+
         }
+
 
         .discount-box {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 20px;
+
             max-width: 500px;
+
         }
+
 
         .totals {
+
             max-width: 500px;
+
             margin-left: auto;
+
             margin-top: 30px;
+
         }
+
 
         .total-line {
+
             display: flex;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             padding: 8px 0;
+
         }
+
 
         .grand-total {
+
             font-size: 28px;
+
             font-weight: bold;
-            border-top: 2px solid #111827;
+
+            border-top:
+                2px solid #111827;
+
             margin-top: 10px;
+
             padding-top: 15px;
+
         }
+
 
         .primary-button {
+
             width: 100%;
+
             margin-top: 30px;
+
             padding: 16px;
+
             background: #111827;
+
             color: white;
+
             border: none;
+
             border-radius: 10px;
+
             font-size: 18px;
+
             cursor: pointer;
+
         }
+
 
         .primary-button:hover {
+
             background: #374151;
+
         }
+
 
         .secondary-button {
-            padding: 12px 18px;
+
+            padding:
+                12px 18px;
+
             background: white;
+
             color: #111827;
-            border: 1px solid #111827;
+
+            border:
+                1px solid #111827;
+
             border-radius: 8px;
+
             cursor: pointer;
+
             font-size: 15px;
+
         }
+
+
+        .secondary-button:hover {
+
+            background: #f3f4f6;
+
+        }
+
 
         .preview-section {
+
             margin-top: 50px;
+
         }
+
 
         .preview-title {
+
             text-align: center;
+
             margin-bottom: 20px;
+
         }
+
 
         .invoice-preview {
+
             background: white;
+
             padding: 50px;
-            border: 1px solid #d1d5db;
+
+            border:
+                1px solid #d1d5db;
+
             max-width: 900px;
+
             margin: 0 auto;
+
         }
+
 
         .preview-top {
+
             display: flex;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             gap: 30px;
+
             margin-bottom: 40px;
+
         }
+
 
         .preview-logo {
+
             max-width: 180px;
+
             max-height: 100px;
+
             display: none;
+
+            margin-bottom: 15px;
+
         }
+
 
         .preview-company {
+
             font-size: 26px;
+
             font-weight: bold;
+
             margin-bottom: 10px;
+
         }
+
 
         .preview-invoice-title {
+
             font-size: 36px;
+
             font-weight: bold;
+
             text-align: right;
+
         }
+
 
         .preview-meta {
+
             text-align: right;
+
             color: #6b7280;
+
             line-height: 1.7;
+
         }
+
 
         .preview-columns {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 30px;
+
             margin-bottom: 40px;
+
         }
+
 
         .preview-label {
+
             font-weight: bold;
+
             margin-bottom: 8px;
+
         }
 
+
         .preview-items {
+
             width: 100%;
-            border-collapse: collapse;
+
+            border-collapse:
+                collapse;
+
             margin-top: 20px;
+
         }
+
 
         .preview-items th,
         .preview-items td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #e5e7eb;
+
+            padding:
+                12px 8px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
             text-align: left;
+
         }
+
 
         .preview-items th:last-child,
         .preview-items td:last-child {
+
             text-align: right;
+
         }
+
 
         .preview-total {
+
             max-width: 350px;
+
             margin-left: auto;
+
             margin-top: 20px;
+
         }
+
 
         .preview-total-line {
+
             display: flex;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             padding: 7px 0;
+
         }
+
 
         .preview-grand-total {
+
             font-size: 22px;
+
             font-weight: bold;
-            border-top: 2px solid #111827;
+
+            border-top:
+                2px solid #111827;
+
             padding-top: 10px;
+
             margin-top: 8px;
+
         }
+
 
         .preview-notes {
+
             margin-top: 50px;
-            border-top: 1px solid #e5e7eb;
+
+            border-top:
+                1px solid #e5e7eb;
+
             padding-top: 20px;
+
         }
+
 
         .preview-notes h3 {
+
             margin-bottom: 8px;
+
         }
+
 
         .action-buttons {
+
             display: flex;
-            justify-content: center;
+
+            justify-content:
+                center;
+
             gap: 15px;
+
             margin-top: 25px;
+
         }
 
-        footer {
-            text-align: center;
-            color: #6b7280;
-            padding: 40px;
+
+        .download-button {
+
+            padding:
+                14px 25px;
+
+            background: #111827;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
         }
+
+
+        .download-button:hover {
+
+            background: #374151;
+
+        }
+
+
+        .download-button:disabled {
+
+            opacity: 0.6;
+
+            cursor: wait;
+
+        }
+
+
+        footer {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            padding: 40px;
+
+        }
+
 
         @media (max-width: 750px) {
 
+
             .form-grid {
+
                 grid-template-columns: 1fr;
+
             }
+
 
             .discount-box {
+
                 grid-template-columns: 1fr;
+
             }
+
 
             .items-header {
+
                 display: none;
+
             }
+
 
             .item-row {
+
                 grid-template-columns: 1fr;
-                border: 1px solid #e5e7eb;
+
+                border:
+                    1px solid #e5e7eb;
+
                 padding: 15px;
+
                 border-radius: 10px;
+
             }
 
+
             .preview-top {
+
                 flex-direction: column;
+
             }
+
 
             .preview-invoice-title,
             .preview-meta {
+
                 text-align: left;
+
             }
+
 
             .preview-columns {
+
                 grid-template-columns: 1fr;
+
             }
+
 
             .invoice-preview {
+
                 padding: 25px;
+
             }
 
+
             .title h1 {
+
                 font-size: 32px;
+
             }
+
 
         }
 
+
+        /* ==============================
+           PRINT
+        ============================== */
+
         @media print {
 
-            body {
-                background: white;
+
+            @page {
+
+                size: A4;
+
+                margin: 15mm;
+
             }
+
+
+            html,
+            body {
+
+                margin: 0;
+
+                padding: 0;
+
+                background: white;
+
+            }
+
 
             header,
             .title,
@@ -403,26 +811,57 @@
             .preview-title,
             .action-buttons,
             footer {
-                display: none !important;
+
+                display:
+                    none !important;
+
             }
+
 
             .container {
-                padding: 0;
-                margin: 0;
+
+                width: 100%;
+
                 max-width: none;
+
+                margin: 0;
+
+                padding: 0;
+
             }
+
 
             .preview-section {
+
+                display: block !important;
+
                 margin: 0;
+
+                padding: 0;
+
             }
 
+
             .invoice-preview {
-                border: none;
+
+                display: block !important;
+
+                width: 100%;
+
                 max-width: none;
-                padding: 20px;
+
+                margin: 0;
+
+                padding: 0;
+
+                border: none;
+
+                box-shadow: none;
+
             }
 
         }
+
 
     </style>
 
@@ -467,6 +906,7 @@
             <h2>
                 Business Information
             </h2>
+
 
             <div class="form-grid">
 
@@ -541,6 +981,7 @@
                         Company Logo
                     </label>
 
+
                     <div class="logo-upload">
 
                         <input
@@ -549,6 +990,7 @@
                             accept="image/*"
                             onchange="loadLogo(event)"
                         >
+
 
                         <img
                             id="logoPreview"
@@ -573,6 +1015,7 @@
             <h2>
                 Bill To
             </h2>
+
 
             <div class="form-grid">
 
@@ -638,6 +1081,7 @@
                 Invoice Information
             </h2>
 
+
             <div class="form-grid">
 
 
@@ -693,20 +1137,50 @@
                         Currency
                     </label>
 
+
                     <select
                         id="currency"
-                        onchange="calculateTotal(); updatePreview();"
+                        onchange="
+                            calculateTotal();
+                            updatePreview();
+                        "
                     >
 
-                        <option value="USD">USD — US Dollar</option>
-                        <option value="EUR">EUR — Euro</option>
-                        <option value="GBP">GBP — British Pound</option>
-                        <option value="CAD">CAD — Canadian Dollar</option>
-                        <option value="AUD">AUD — Australian Dollar</option>
-                        <option value="SGD">SGD — Singapore Dollar</option>
-                        <option value="HKD">HKD — Hong Kong Dollar</option>
-                        <option value="CNY">CNY — Chinese Yuan</option>
-                        <option value="VND">VND — Vietnamese Dong</option>
+                        <option value="USD">
+                            USD — US Dollar
+                        </option>
+
+                        <option value="EUR">
+                            EUR — Euro
+                        </option>
+
+                        <option value="GBP">
+                            GBP — British Pound
+                        </option>
+
+                        <option value="CAD">
+                            CAD — Canadian Dollar
+                        </option>
+
+                        <option value="AUD">
+                            AUD — Australian Dollar
+                        </option>
+
+                        <option value="SGD">
+                            SGD — Singapore Dollar
+                        </option>
+
+                        <option value="HKD">
+                            HKD — Hong Kong Dollar
+                        </option>
+
+                        <option value="CNY">
+                            CNY — Chinese Yuan
+                        </option>
+
+                        <option value="VND">
+                            VND — Vietnamese Dong
+                        </option>
 
                     </select>
 
@@ -729,11 +1203,25 @@
 
             <div class="items-header">
 
-                <div>Description</div>
-                <div>Quantity</div>
-                <div>Unit Price</div>
-                <div>Amount</div>
-                <div>Action</div>
+                <div>
+                    Description
+                </div>
+
+                <div>
+                    Quantity
+                </div>
+
+                <div>
+                    Unit Price
+                </div>
+
+                <div>
+                    Amount
+                </div>
+
+                <div>
+                    Action
+                </div>
 
             </div>
 
@@ -757,7 +1245,10 @@
                         class="quantity"
                         value="1"
                         min="1"
-                        oninput="calculateTotal(); updatePreview()"
+                        oninput="
+                            calculateTotal();
+                            updatePreview();
+                        "
                     >
 
 
@@ -766,7 +1257,10 @@
                         class="unit-price"
                         value="0"
                         min="0"
-                        oninput="calculateTotal(); updatePreview()"
+                        oninput="
+                            calculateTotal();
+                            updatePreview();
+                        "
                     >
 
 
@@ -823,9 +1317,13 @@
                         Discount Type
                     </label>
 
+
                     <select
                         id="discountType"
-                        onchange="calculateTotal(); updatePreview();"
+                        onchange="
+                            calculateTotal();
+                            updatePreview();
+                        "
                     >
 
                         <option value="percentage">
@@ -847,12 +1345,16 @@
                         Discount
                     </label>
 
+
                     <input
                         id="discountValue"
                         type="number"
                         value="0"
                         min="0"
-                        oninput="calculateTotal(); updatePreview()"
+                        oninput="
+                            calculateTotal();
+                            updatePreview();
+                        "
                     >
 
                 </div>
@@ -864,12 +1366,16 @@
                         Tax Rate (%)
                     </label>
 
+
                     <input
                         id="taxRate"
                         type="number"
                         value="0"
                         min="0"
-                        oninput="calculateTotal(); updatePreview()"
+                        oninput="
+                            calculateTotal();
+                            updatePreview();
+                        "
                     >
 
                 </div>
@@ -898,6 +1404,7 @@
                         Notes
                     </label>
 
+
                     <textarea
                         id="notes"
                         placeholder="Thank you for your business."
@@ -912,6 +1419,7 @@
                     <label>
                         Payment Terms
                     </label>
+
 
                     <textarea
                         id="paymentTerms"
@@ -939,7 +1447,19 @@
                 </span>
 
                 <span>
-                    <span id="currencySymbol">$</span><span id="subtotal">0.00</span>
+
+                    <span
+                        id="currencySymbol"
+                    >
+                        $
+                    </span>
+
+                    <span
+                        id="subtotal"
+                    >
+                        0.00
+                    </span>
+
                 </span>
 
             </div>
@@ -952,7 +1472,21 @@
                 </span>
 
                 <span>
-                    -<span id="currencySymbolDiscount">$</span><span id="discountAmount">0.00</span>
+
+                    -
+
+                    <span
+                        id="currencySymbolDiscount"
+                    >
+                        $
+                    </span>
+
+                    <span
+                        id="discountAmount"
+                    >
+                        0.00
+                    </span>
+
                 </span>
 
             </div>
@@ -965,7 +1499,19 @@
                 </span>
 
                 <span>
-                    <span id="currencySymbolTax">$</span><span id="taxAmount">0.00</span>
+
+                    <span
+                        id="currencySymbolTax"
+                    >
+                        $
+                    </span>
+
+                    <span
+                        id="taxAmount"
+                    >
+                        0.00
+                    </span>
+
                 </span>
 
             </div>
@@ -978,7 +1524,19 @@
                 </span>
 
                 <span>
-                    <span id="currencySymbolTotal">$</span><span id="total">0.00</span>
+
+                    <span
+                        id="currencySymbolTotal"
+                    >
+                        $
+                    </span>
+
+                    <span
+                        id="total"
+                    >
+                        0.00
+                    </span>
+
                 </span>
 
             </div>
@@ -990,7 +1548,10 @@
         <button
             type="button"
             class="primary-button"
-            onclick="updatePreview(); scrollToPreview();"
+            onclick="
+                updatePreview();
+                scrollToPreview();
+            "
         >
             Preview Invoice
         </button>
@@ -1006,12 +1567,16 @@
         class="preview-section"
     >
 
+
         <h2 class="preview-title">
             Invoice Preview
         </h2>
 
 
-        <div class="invoice-preview">
+        <div
+            id="invoicePreview"
+            class="invoice-preview"
+        >
 
 
             <div class="preview-top">
@@ -1019,11 +1584,13 @@
 
                 <div>
 
+
                     <img
                         id="previewLogo"
                         class="preview-logo"
                         alt="Company Logo"
                     >
+
 
                     <div
                         id="previewCompany"
@@ -1032,23 +1599,32 @@
                         Your Business
                     </div>
 
-                    <div id="previewBusinessContact">
+
+                    <div
+                        id="previewBusinessContact"
+                    >
                     </div>
+
 
                 </div>
 
 
                 <div>
 
-                    <div class="preview-invoice-title">
+
+                    <div
+                        class="preview-invoice-title"
+                    >
                         INVOICE
                     </div>
+
 
                     <div
                         id="previewInvoiceMeta"
                         class="preview-meta"
                     >
                     </div>
+
 
                 </div>
 
@@ -1061,11 +1637,16 @@
 
                 <div>
 
-                    <div class="preview-label">
+                    <div
+                        class="preview-label"
+                    >
                         Bill From
                     </div>
 
-                    <div id="previewFrom">
+
+                    <div
+                        id="previewFrom"
+                    >
                     </div>
 
                 </div>
@@ -1073,11 +1654,16 @@
 
                 <div>
 
-                    <div class="preview-label">
+                    <div
+                        class="preview-label"
+                    >
                         Bill To
                     </div>
 
-                    <div id="previewTo">
+
+                    <div
+                        id="previewTo"
+                    >
                     </div>
 
                 </div>
@@ -1087,6 +1673,7 @@
 
 
             <table class="preview-items">
+
 
                 <thead>
 
@@ -1118,55 +1705,75 @@
                 >
                 </tbody>
 
+
             </table>
 
 
             <div class="preview-total">
 
 
-                <div class="preview-total-line">
+                <div
+                    class="preview-total-line"
+                >
 
                     <span>
                         Subtotal
                     </span>
 
-                    <span id="previewSubtotal">
+                    <span
+                        id="previewSubtotal"
+                    >
                     </span>
 
                 </div>
 
 
-                <div class="preview-total-line">
+                <div
+                    class="preview-total-line"
+                >
 
                     <span>
                         Discount
                     </span>
 
-                    <span id="previewDiscount">
+                    <span
+                        id="previewDiscount"
+                    >
                     </span>
 
                 </div>
 
 
-                <div class="preview-total-line">
+                <div
+                    class="preview-total-line"
+                >
 
                     <span>
                         Tax
                     </span>
 
-                    <span id="previewTax">
+                    <span
+                        id="previewTax"
+                    >
                     </span>
 
                 </div>
 
 
-                <div class="preview-total-line preview-grand-total">
+                <div
+                    class="
+                        preview-total-line
+                        preview-grand-total
+                    "
+                >
 
                     <span>
                         Total
                     </span>
 
-                    <span id="previewTotal">
+                    <span
+                        id="previewTotal"
+                    >
                     </span>
 
                 </div>
@@ -1177,20 +1784,30 @@
 
             <div class="preview-notes">
 
+
                 <h3>
                     Notes
                 </h3>
 
-                <div id="previewNotes">
+
+                <div
+                    id="previewNotes"
+                >
                 </div>
 
 
-                <h3 style="margin-top:25px;">
+                <h3
+                    style="margin-top:25px;"
+                >
                     Payment Terms
                 </h3>
 
-                <div id="previewPaymentTerms">
+
+                <div
+                    id="previewPaymentTerms"
+                >
                 </div>
+
 
             </div>
 
@@ -1203,10 +1820,11 @@
 
             <button
                 type="button"
-                class="secondary-button"
-                onclick="window.print()"
+                class="download-button"
+                id="downloadPdfButton"
+                onclick="downloadPDF()"
             >
-                Print / Save as PDF
+                Download PDF
             </button>
 
 
@@ -1221,7 +1839,8 @@
 
 <footer>
 
-    © 2026 AIGoHelp. All rights reserved.
+    © 2026 AIGoHelp.
+    All rights reserved.
 
 </footer>
 
@@ -1229,179 +1848,44 @@
 <script>
 
 
-/* ==============================
+/* ==========================================
    CURRENCY
-============================== */
+========================================== */
 
 function getCurrencySymbol(currency) {
 
     const symbols = {
 
         USD: "$",
+
         EUR: "€",
+
         GBP: "£",
+
         CAD: "C$",
+
         AUD: "A$",
+
         SGD: "S$",
+
         HKD: "HK$",
+
         CNY: "¥",
+
         VND: "₫"
 
     };
 
-    return symbols[currency] || currency;
+
+    return symbols[currency]
+        || currency;
 
 }
 
 
-/* ==============================
-   CALCULATE TOTAL
-============================== */
-
-function calculateTotal() {
-
-    const rows =
-        document.querySelectorAll(".item-row");
-
-
-    let subtotal = 0;
-
-
-    rows.forEach(function(row) {
-
-        const quantity =
-            parseFloat(
-                row.querySelector(".quantity").value
-            ) || 0;
-
-
-        const unitPrice =
-            parseFloat(
-                row.querySelector(".unit-price").value
-            ) || 0;
-
-
-        const amount =
-            quantity * unitPrice;
-
-
-        row.querySelector(".amount").value =
-            formatMoney(amount);
-
-
-        subtotal += amount;
-
-    });
-
-
-    const discountType =
-        document.getElementById("discountType").value;
-
-
-    const discountValue =
-        parseFloat(
-            document.getElementById("discountValue").value
-        ) || 0;
-
-
-    let discountAmount = 0;
-
-
-    if (discountType === "percentage") {
-
-        discountAmount =
-            subtotal * discountValue / 100;
-
-    } else {
-
-        discountAmount =
-            discountValue;
-
-    }
-
-
-    if (discountAmount > subtotal) {
-
-        discountAmount = subtotal;
-
-    }
-
-
-    const taxableAmount =
-        subtotal - discountAmount;
-
-
-    const taxRate =
-        parseFloat(
-            document.getElementById("taxRate").value
-        ) || 0;
-
-
-    const taxAmount =
-        taxableAmount * taxRate / 100;
-
-
-    const total =
-        taxableAmount + taxAmount;
-
-
-    const currency =
-        document.getElementById("currency").value;
-
-
-    const symbol =
-        getCurrencySymbol(currency);
-
-
-    document.getElementById("subtotal").textContent =
-        formatNumber(subtotal);
-
-
-    document.getElementById("discountAmount").textContent =
-        formatNumber(discountAmount);
-
-
-    document.getElementById("taxAmount").textContent =
-        formatNumber(taxAmount);
-
-
-    document.getElementById("total").textContent =
-        formatNumber(total);
-
-
-    document.getElementById("currencySymbol").textContent =
-        symbol;
-
-
-    document.getElementById("currencySymbolDiscount").textContent =
-        symbol;
-
-
-    document.getElementById("currencySymbolTax").textContent =
-        symbol;
-
-
-    document.getElementById("currencySymbolTotal").textContent =
-        symbol;
-
-
-    return {
-
-        subtotal,
-        discountAmount,
-        taxAmount,
-        total,
-        currency,
-        symbol
-
-    };
-
-}
-
-
-/* ==============================
+/* ==========================================
    NUMBER FORMAT
-============================== */
+========================================== */
 
 function formatNumber(number) {
 
@@ -1410,10 +1894,15 @@ function formatNumber(number) {
 }
 
 
+/* ==========================================
+   MONEY FORMAT
+========================================== */
+
 function formatMoney(number) {
 
     const currency =
-        document.getElementById("currency")
+        document
+            .getElementById("currency")
             .value;
 
 
@@ -1421,23 +1910,275 @@ function formatMoney(number) {
         getCurrencySymbol(currency);
 
 
-    return symbol + number.toFixed(2);
+    return symbol
+        + number.toFixed(2);
 
 }
 
 
-/* ==============================
+/* ==========================================
+   CALCULATE TOTAL
+========================================== */
+
+function calculateTotal() {
+
+
+    const rows =
+        document.querySelectorAll(
+            ".item-row"
+        );
+
+
+    let subtotal = 0;
+
+
+    rows.forEach(function(row) {
+
+
+        const quantity =
+            parseFloat(
+                row
+                    .querySelector(".quantity")
+                    .value
+            ) || 0;
+
+
+        const unitPrice =
+            parseFloat(
+                row
+                    .querySelector(".unit-price")
+                    .value
+            ) || 0;
+
+
+        const amount =
+            quantity * unitPrice;
+
+
+        row
+            .querySelector(".amount")
+            .value =
+            formatMoney(amount);
+
+
+        subtotal += amount;
+
+
+    });
+
+
+    const discountType =
+        document
+            .getElementById(
+                "discountType"
+            )
+            .value;
+
+
+    const discountValue =
+        parseFloat(
+            document
+                .getElementById(
+                    "discountValue"
+                )
+                .value
+        ) || 0;
+
+
+    let discountAmount = 0;
+
+
+    if (
+        discountType ===
+        "percentage"
+    ) {
+
+
+        discountAmount =
+            subtotal
+            *
+            discountValue
+            /
+            100;
+
+
+    } else {
+
+
+        discountAmount =
+            discountValue;
+
+
+    }
+
+
+    if (
+        discountAmount >
+        subtotal
+    ) {
+
+        discountAmount =
+            subtotal;
+
+    }
+
+
+    const taxableAmount =
+        subtotal -
+        discountAmount;
+
+
+    const taxRate =
+        parseFloat(
+            document
+                .getElementById(
+                    "taxRate"
+                )
+                .value
+        ) || 0;
+
+
+    const taxAmount =
+        taxableAmount
+        *
+        taxRate
+        /
+        100;
+
+
+    const total =
+        taxableAmount +
+        taxAmount;
+
+
+    const currency =
+        document
+            .getElementById(
+                "currency"
+            )
+            .value;
+
+
+    const symbol =
+        getCurrencySymbol(
+            currency
+        );
+
+
+    document
+        .getElementById(
+            "subtotal"
+        )
+        .textContent =
+        formatNumber(
+            subtotal
+        );
+
+
+    document
+        .getElementById(
+            "discountAmount"
+        )
+        .textContent =
+        formatNumber(
+            discountAmount
+        );
+
+
+    document
+        .getElementById(
+            "taxAmount"
+        )
+        .textContent =
+        formatNumber(
+            taxAmount
+        );
+
+
+    document
+        .getElementById(
+            "total"
+        )
+        .textContent =
+        formatNumber(
+            total
+        );
+
+
+    document
+        .getElementById(
+            "currencySymbol"
+        )
+        .textContent =
+        symbol;
+
+
+    document
+        .getElementById(
+            "currencySymbolDiscount"
+        )
+        .textContent =
+        symbol;
+
+
+    document
+        .getElementById(
+            "currencySymbolTax"
+        )
+        .textContent =
+        symbol;
+
+
+    document
+        .getElementById(
+            "currencySymbolTotal"
+        )
+        .textContent =
+        symbol;
+
+
+    return {
+
+        subtotal:
+            subtotal,
+
+        discountAmount:
+            discountAmount,
+
+        taxAmount:
+            taxAmount,
+
+        total:
+            total,
+
+        currency:
+            currency,
+
+        symbol:
+            symbol
+
+    };
+
+}
+
+
+/* ==========================================
    ADD ITEM
-============================== */
+========================================== */
 
 function addItem() {
 
+
     const container =
-        document.getElementById("items-container");
+        document.getElementById(
+            "items-container"
+        );
 
 
     const row =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     row.className =
@@ -1458,7 +2199,10 @@ function addItem() {
             class="quantity"
             value="1"
             min="1"
-            oninput="calculateTotal(); updatePreview()"
+            oninput="
+                calculateTotal();
+                updatePreview();
+            "
         >
 
         <input
@@ -1466,7 +2210,10 @@ function addItem() {
             class="unit-price"
             value="0"
             min="0"
-            oninput="calculateTotal(); updatePreview()"
+            oninput="
+                calculateTotal();
+                updatePreview();
+            "
         >
 
         <input
@@ -1487,7 +2234,9 @@ function addItem() {
     `;
 
 
-    container.appendChild(row);
+    container.appendChild(
+        row
+    );
 
 
     calculateTotal();
@@ -1497,32 +2246,43 @@ function addItem() {
 }
 
 
-/* ==============================
+/* ==========================================
    REMOVE ITEM
-============================== */
+========================================== */
 
 function removeItem(button) {
 
+
     const container =
-        document.getElementById("items-container");
+        document.getElementById(
+            "items-container"
+        );
 
 
     const rows =
-        container.querySelectorAll(".item-row");
+        container.querySelectorAll(
+            ".item-row"
+        );
 
 
-    if (rows.length <= 1) {
+    if (
+        rows.length <= 1
+    ) {
+
 
         alert(
             "At least one item is required."
         );
+
 
         return;
 
     }
 
 
-    button.parentElement.remove();
+    button
+        .parentElement
+        .remove();
 
 
     calculateTotal();
@@ -1532,14 +2292,17 @@ function removeItem(button) {
 }
 
 
-/* ==============================
+/* ==========================================
    LOGO
-============================== */
+========================================== */
 
 function loadLogo(event) {
 
+
     const file =
-        event.target.files[0];
+        event
+            .target
+            .files[0];
 
 
     if (!file) {
@@ -1556,8 +2319,11 @@ function loadLogo(event) {
     reader.onload =
         function(e) {
 
+
             const image =
-                document.getElementById("logoPreview");
+                document.getElementById(
+                    "logoPreview"
+                );
 
 
             image.src =
@@ -1569,7 +2335,9 @@ function loadLogo(event) {
 
 
             const previewLogo =
-                document.getElementById("previewLogo");
+                document.getElementById(
+                    "previewLogo"
+                );
 
 
             previewLogo.src =
@@ -1579,233 +2347,418 @@ function loadLogo(event) {
             previewLogo.style.display =
                 "block";
 
+
         };
 
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(
+        file
+    );
 
 }
 
 
-/* ==============================
-   PREVIEW
-============================== */
+/* ==========================================
+   UPDATE PREVIEW
+========================================== */
 
 function updatePreview() {
+
 
     const totals =
         calculateTotal();
 
 
     const businessName =
-        document.getElementById("businessName").value
-        || "Your Business";
+        document
+            .getElementById(
+                "businessName"
+            )
+            .value
+        ||
+        "Your Business";
 
 
     const businessEmail =
-        document.getElementById("businessEmail").value;
+        document
+            .getElementById(
+                "businessEmail"
+            )
+            .value;
 
 
     const businessAddress =
-        document.getElementById("businessAddress").value;
+        document
+            .getElementById(
+                "businessAddress"
+            )
+            .value;
 
 
     const businessPhone =
-        document.getElementById("businessPhone").value;
+        document
+            .getElementById(
+                "businessPhone"
+            )
+            .value;
 
 
     const customerName =
-        document.getElementById("customerName").value
-        || "Customer";
+        document
+            .getElementById(
+                "customerName"
+            )
+            .value
+        ||
+        "Customer";
 
 
     const customerEmail =
-        document.getElementById("customerEmail").value;
+        document
+            .getElementById(
+                "customerEmail"
+            )
+            .value;
 
 
     const customerAddress =
-        document.getElementById("customerAddress").value;
+        document
+            .getElementById(
+                "customerAddress"
+            )
+            .value;
 
 
     const invoiceNumber =
-        document.getElementById("invoiceNumber").value
-        || "INV-001";
+        document
+            .getElementById(
+                "invoiceNumber"
+            )
+            .value
+        ||
+        "INV-001";
 
 
     const invoiceDate =
-        document.getElementById("invoiceDate").value;
+        document
+            .getElementById(
+                "invoiceDate"
+            )
+            .value;
 
 
     const dueDate =
-        document.getElementById("dueDate").value;
+        document
+            .getElementById(
+                "dueDate"
+            )
+            .value;
 
 
     const notes =
-        document.getElementById("notes").value
-        || "Thank you for your business.";
+        document
+            .getElementById(
+                "notes"
+            )
+            .value
+        ||
+        "Thank you for your business.";
 
 
     const paymentTerms =
-        document.getElementById("paymentTerms").value
-        || "Payment due within 30 days.";
+        document
+            .getElementById(
+                "paymentTerms"
+            )
+            .value
+        ||
+        "Payment due within 30 days.";
 
 
-    document.getElementById("previewCompany")
-        .textContent = businessName;
+    document
+        .getElementById(
+            "previewCompany"
+        )
+        .textContent =
+        businessName;
 
 
-    document.getElementById("previewBusinessContact")
+    document
+        .getElementById(
+            "previewBusinessContact"
+        )
         .innerHTML =
-            escapeHtml(businessAddress)
-            + "<br>"
-            + escapeHtml(businessEmail)
-            + "<br>"
-            + escapeHtml(businessPhone);
+
+        escapeHtml(
+            businessAddress
+        )
+
+        + "<br>"
+
+        + escapeHtml(
+            businessEmail
+        )
+
+        + "<br>"
+
+        + escapeHtml(
+            businessPhone
+        );
 
 
-    document.getElementById("previewInvoiceMeta")
+    document
+        .getElementById(
+            "previewInvoiceMeta"
+        )
         .innerHTML =
 
         "Invoice #: "
-        + escapeHtml(invoiceNumber)
+        +
+        escapeHtml(
+            invoiceNumber
+        )
+
         + "<br>"
 
         + "Invoice Date: "
-        + escapeHtml(formatDate(invoiceDate))
+        +
+        escapeHtml(
+            formatDate(
+                invoiceDate
+            )
+        )
+
         + "<br>"
 
         + "Due Date: "
-        + escapeHtml(formatDate(dueDate));
+        +
+        escapeHtml(
+            formatDate(
+                dueDate
+            )
+        );
 
 
-    document.getElementById("previewFrom")
+    document
+        .getElementById(
+            "previewFrom"
+        )
         .innerHTML =
 
-        escapeHtml(businessName)
+        escapeHtml(
+            businessName
+        )
+
         + "<br>"
-        + escapeHtml(businessAddress)
+
+        + escapeHtml(
+            businessAddress
+        )
+
         + "<br>"
-        + escapeHtml(businessEmail)
+
+        + escapeHtml(
+            businessEmail
+        )
+
         + "<br>"
-        + escapeHtml(businessPhone);
+
+        + escapeHtml(
+            businessPhone
+        );
 
 
-    document.getElementById("previewTo")
+    document
+        .getElementById(
+            "previewTo"
+        )
         .innerHTML =
 
-        escapeHtml(customerName)
+        escapeHtml(
+            customerName
+        )
+
         + "<br>"
-        + escapeHtml(customerAddress)
+
+        + escapeHtml(
+            customerAddress
+        )
+
         + "<br>"
-        + escapeHtml(customerEmail);
+
+        + escapeHtml(
+            customerEmail
+        );
 
 
     const previewItems =
-        document.getElementById("previewItems");
+        document
+            .getElementById(
+                "previewItems"
+            );
 
 
-    previewItems.innerHTML = "";
+    previewItems.innerHTML =
+        "";
 
 
     const rows =
-        document.querySelectorAll(".item-row");
+        document.querySelectorAll(
+            ".item-row"
+        );
 
 
-    rows.forEach(function(row) {
-
-        const description =
-            row.querySelector(".description").value
-            || "Item";
+    rows.forEach(
+        function(row) {
 
 
-        const quantity =
-            parseFloat(
-                row.querySelector(".quantity").value
-            ) || 0;
+            const description =
+                row
+                    .querySelector(
+                        ".description"
+                    )
+                    .value
+                ||
+                "Item";
 
 
-        const unitPrice =
-            parseFloat(
-                row.querySelector(".unit-price").value
-            ) || 0;
+            const quantity =
+                parseFloat(
+                    row
+                        .querySelector(
+                            ".quantity"
+                        )
+                        .value
+                )
+                ||
+                0;
 
 
-        const amount =
-            quantity * unitPrice;
+            const unitPrice =
+                parseFloat(
+                    row
+                        .querySelector(
+                            ".unit-price"
+                        )
+                        .value
+                )
+                ||
+                0;
 
 
-        const tr =
-            document.createElement("tr");
+            const amount =
+                quantity *
+                unitPrice;
 
 
-        tr.innerHTML = `
-
-            <td>
-                ${escapeHtml(description)}
-            </td>
-
-            <td>
-                ${quantity}
-            </td>
-
-            <td>
-                ${totals.symbol}${unitPrice.toFixed(2)}
-            </td>
-
-            <td>
-                ${totals.symbol}${amount.toFixed(2)}
-            </td>
-
-        `;
+            const tr =
+                document.createElement(
+                    "tr"
+                );
 
 
-        previewItems.appendChild(tr);
+            tr.innerHTML = `
 
-    });
+                <td>
+                    ${escapeHtml(description)}
+                </td>
+
+                <td>
+                    ${quantity}
+                </td>
+
+                <td>
+                    ${totals.symbol}${unitPrice.toFixed(2)}
+                </td>
+
+                <td>
+                    ${totals.symbol}${amount.toFixed(2)}
+                </td>
+
+            `;
 
 
-    document.getElementById("previewSubtotal")
+            previewItems.appendChild(
+                tr
+            );
+
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "previewSubtotal"
+        )
         .textContent =
+
         totals.symbol
-        + totals.subtotal.toFixed(2);
+        +
+        totals.subtotal.toFixed(2);
 
 
-    document.getElementById("previewDiscount")
+    document
+        .getElementById(
+            "previewDiscount"
+        )
         .textContent =
+
         "-"
-        + totals.symbol
-        + totals.discountAmount.toFixed(2);
-
-
-    document.getElementById("previewTax")
-        .textContent =
+        +
         totals.symbol
-        + totals.taxAmount.toFixed(2);
+        +
+        totals.discountAmount.toFixed(2);
 
 
-    document.getElementById("previewTotal")
+    document
+        .getElementById(
+            "previewTax"
+        )
         .textContent =
+
         totals.symbol
-        + totals.total.toFixed(2);
+        +
+        totals.taxAmount.toFixed(2);
 
 
-    document.getElementById("previewNotes")
+    document
+        .getElementById(
+            "previewTotal"
+        )
+        .textContent =
+
+        totals.symbol
+        +
+        totals.total.toFixed(2);
+
+
+    document
+        .getElementById(
+            "previewNotes"
+        )
         .textContent =
         notes;
 
 
-    document.getElementById("previewPaymentTerms")
+    document
+        .getElementById(
+            "previewPaymentTerms"
+        )
         .textContent =
         paymentTerms;
 
 }
 
 
-/* ==============================
+/* ==========================================
    DATE
-============================== */
+========================================== */
 
-function formatDate(dateString) {
+function formatDate(
+    dateString
+) {
+
 
     if (!dateString) {
 
@@ -1815,100 +2768,455 @@ function formatDate(dateString) {
 
 
     const parts =
-        dateString.split("-");
+        dateString.split(
+            "-"
+        );
 
 
-    if (parts.length !== 3) {
+    if (
+        parts.length !== 3
+    ) {
 
         return dateString;
 
     }
 
 
-    return parts[1]
-        + "/"
-        + parts[2]
-        + "/"
-        + parts[0];
+    return (
+
+        parts[1]
+        +
+        "/"
+        +
+        parts[2]
+        +
+        "/"
+        +
+        parts[0]
+
+    );
 
 }
 
 
-/* ==============================
+/* ==========================================
    ESCAPE HTML
-============================== */
+========================================== */
 
-function escapeHtml(text) {
+function escapeHtml(
+    text
+) {
+
 
     return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* ==============================
+/* ==========================================
    DEFAULT DATES
-============================== */
+========================================== */
 
 function setDefaultDates() {
+
 
     const today =
         new Date();
 
 
+    const year =
+        today.getFullYear();
+
+
+    const month =
+        String(
+            today.getMonth() + 1
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            today.getDate()
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
     const todayString =
-        today.toISOString()
-            .split("T")[0];
+        year
+        +
+        "-"
+        +
+        month
+        +
+        "-"
+        +
+        day;
 
 
-    document.getElementById("invoiceDate")
+    document
+        .getElementById(
+            "invoiceDate"
+        )
         .value =
         todayString;
 
 
     const dueDate =
-        new Date(today);
+        new Date();
 
 
     dueDate.setDate(
-        dueDate.getDate() + 30
+        dueDate.getDate()
+        +
+        30
     );
 
 
-    const dueDateString =
-        dueDate.toISOString()
-            .split("T")[0];
+    const dueYear =
+        dueDate.getFullYear();
 
 
-    document.getElementById("dueDate")
+    const dueMonth =
+        String(
+            dueDate.getMonth() + 1
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    const dueDay =
+        String(
+            dueDate.getDate()
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    document
+        .getElementById(
+            "dueDate"
+        )
         .value =
-        dueDateString;
+
+        dueYear
+        +
+        "-"
+        +
+        dueMonth
+        +
+        "-"
+        +
+        dueDay;
 
 }
 
 
-/* ==============================
+/* ==========================================
    SCROLL TO PREVIEW
-============================== */
+========================================== */
 
 function scrollToPreview() {
 
-    document.getElementById(
-        "previewSection"
-    ).scrollIntoView({
-        behavior: "smooth"
-    });
+
+    document
+        .getElementById(
+            "previewSection"
+        )
+        .scrollIntoView({
+
+            behavior:
+                "smooth"
+
+        });
 
 }
 
 
-/* ==============================
+/* ==========================================
+   DOWNLOAD PDF
+========================================== */
+
+async function downloadPDF() {
+
+
+    const button =
+        document.getElementById(
+            "downloadPdfButton"
+        );
+
+
+    const preview =
+        document.getElementById(
+            "invoicePreview"
+        );
+
+
+    const invoiceNumber =
+        document
+            .getElementById(
+                "invoiceNumber"
+            )
+            .value
+        ||
+        "invoice";
+
+
+    updatePreview();
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "Creating PDF...";
+
+
+    try {
+
+
+        const canvas =
+            await html2canvas(
+                preview,
+                {
+
+                    scale: 2,
+
+                    useCORS: true,
+
+                    backgroundColor:
+                        "#ffffff",
+
+                    logging:
+                        false
+
+                }
+            );
+
+
+        const {
+            jsPDF
+        } =
+            window.jspdf;
+
+
+        const pdf =
+            new jsPDF({
+
+                orientation:
+                    "portrait",
+
+                unit:
+                    "mm",
+
+                format:
+                    "a4"
+
+            });
+
+
+        const pageWidth =
+            pdf.internal
+                .pageSize
+                .getWidth();
+
+
+        const pageHeight =
+            pdf.internal
+                .pageSize
+                .getHeight();
+
+
+        const margin =
+            10;
+
+
+        const availableWidth =
+            pageWidth
+            -
+            margin * 2;
+
+
+        const imageWidth =
+            availableWidth;
+
+
+        const imageHeight =
+            canvas.height
+            *
+            imageWidth
+            /
+            canvas.width;
+
+
+        const imageData =
+            canvas.toDataURL(
+                "image/jpeg",
+                0.95
+            );
+
+
+        let heightLeft =
+            imageHeight;
+
+
+        let position =
+            margin;
+
+
+        pdf.addImage(
+
+            imageData,
+
+            "JPEG",
+
+            margin,
+
+            position,
+
+            imageWidth,
+
+            imageHeight
+
+        );
+
+
+        heightLeft -=
+            pageHeight
+            -
+            margin * 2;
+
+
+        while (
+            heightLeft > 0
+        ) {
+
+
+            position =
+                heightLeft -
+                imageHeight +
+                margin;
+
+
+            pdf.addPage();
+
+
+            pdf.addImage(
+
+                imageData,
+
+                "JPEG",
+
+                margin,
+
+                position,
+
+                imageWidth,
+
+                imageHeight
+
+            );
+
+
+            heightLeft -=
+                pageHeight
+                -
+                margin * 2;
+
+        }
+
+
+        let filename =
+            invoiceNumber
+                .replace(
+                    /[^a-zA-Z0-9-_]/g,
+                    "_"
+                );
+
+
+        if (
+            !filename
+        ) {
+
+            filename =
+                "invoice";
+
+        }
+
+
+        pdf.save(
+            filename
+            +
+            ".pdf"
+        );
+
+
+    } catch (error) {
+
+
+        console.error(
+            "PDF generation error:",
+            error
+        );
+
+
+        alert(
+            "Unable to create PDF. Please try again."
+        );
+
+
+    }
+
+
+    button.disabled =
+        false;
+
+
+    button.textContent =
+        "Download PDF";
+
+}
+
+
+/* ==========================================
    INITIALIZE
-============================== */
+========================================== */
 
 setDefaultDates();
 
